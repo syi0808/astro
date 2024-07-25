@@ -47,7 +47,18 @@ export function renderAllHeadContent(result: SSRResult) {
 			content += part;
 		}
 	}
+	result._metadata.extraHead = [];
 
+	return markHTMLString(content);
+}
+
+export function renderRemainingExtraHead(result: SSRResult) {
+	let content = '';
+	if (result._metadata.extraHead.length > 0) {
+		for (const part of result._metadata.extraHead) {
+			content += part;
+		}
+	}
 	return markHTMLString(content);
 }
 

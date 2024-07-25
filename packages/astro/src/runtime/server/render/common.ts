@@ -9,7 +9,7 @@ import {
 	determinesIfNeedsDirectiveScript,
 	getPrescripts,
 } from '../scripts.js';
-import { renderAllHeadContent } from './head.js';
+import { renderAllHeadContent, renderRemainingExtraHead } from './head.js';
 import { isRenderInstruction } from './instruction.js';
 import { type SlotString, isSlotString } from './slot.js';
 
@@ -79,13 +79,13 @@ function stringifyChunk(
 			}
 			case 'head': {
 				if (result._metadata.hasRenderedHead || result.partial) {
-					return '';
+					return renderRemainingExtraHead(result);
 				}
 				return renderAllHeadContent(result);
 			}
 			case 'maybe-head': {
 				if (result._metadata.hasRenderedHead || result._metadata.headInTree || result.partial) {
-					return '';
+					return renderRemainingExtraHead(result);
 				}
 				return renderAllHeadContent(result);
 			}
