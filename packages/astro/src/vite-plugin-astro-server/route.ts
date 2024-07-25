@@ -195,7 +195,7 @@ export async function handleRoute({
 
 	const isPrerendered404 = matchedRoute.route.route === '/404' && matchedRoute.route.prerender;
 
-	renderContext = RenderContext.create({
+	renderContext = await RenderContext.create({
 		locals,
 		pipeline,
 		pathname,
@@ -232,7 +232,7 @@ export async function handleRoute({
 			req({
 				url: pathname,
 				method: incomingRequest.method,
-				statusCode: isRewrite ? response.status : status ?? response.status,
+				statusCode: isRewrite ? response.status : (status ?? response.status),
 				isRewrite,
 				reqTime: timeEnd - timeStart,
 			})
